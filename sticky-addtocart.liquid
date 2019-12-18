@@ -3,7 +3,7 @@
 {%- form 'product', product, class: 'ProductForm' -%}
 <div id="codehouse_bar" class="designNo0 designNo3" style="z-index: 9999;">
   <div class="codehouse_thumb-img">
-    <img class="codehouse_thumb" src="https://cdn.shopify.com/s/files/1/1744/0891/products/bestsellrz-iphone-cases-rugcase-crystal-black-for-iphone-6-6s-7306690986043.jpg?v=1569106845">
+    <img class="codehouse_thumb" src="{{product.featured_image | img_url: 'small'}}">
   </div>
   <div class="codehouse_title" style="max-width: calc(100% - 862px);">
     <a href="#" class="codehouse_title_a">{{product.title}}</a>
