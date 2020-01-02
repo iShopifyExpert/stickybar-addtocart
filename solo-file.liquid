@@ -1,0 +1,105 @@
+{{ 'codehouse.min.css' | asset_url | stylesheet_tag }}
+{{ 'animate.min.css' | asset_url | stylesheet_tag }}
+{%- form 'product', product, class: 'ProductForms', id: 'product_form_sticky' -%}
+<div id="codehouse_bar" class="designNo0 designNo3" style="z-index: 1;">
+  <div class="codehouse_thumb-img">
+    <img class="codehouse_thumb" src="{{product.featured_image | img_url: 'small'}}">
+  </div>
+  <div class="codehouse_title" style="max-width: calc(100% - 862px);">
+    <a href="#" class="codehouse_title_a">{{product.title}}</a>
+    <div class="codehouse_reviews_stars" style="display: none;"></div>
+  </div>
+  <div class="codehouse_btn animated shake">
+    <button style="background-color: #0DBD21;" type="submit" id="add-to-cart" class="ProductForm__AddToCart Button Button--secondary Button--full" data-action="add-to-cart" style="background-color:#0DBD21 !important;color: #ffffff !important;"><span>Add to Cart ➔</span></button>
+  </div>
+  <div class="codehouse_confirmation">Product Added!</div>
+  <div class="codehouse_price money">{{product.price | money}}</div>
+  <div class="codehouse_was_price money">{{product.compare_at_price | money}}</div>
+  <div class="codehouse_variants">
+    <select id="ProductSticky-{{product.id}}" name="id" title="Variant">
+      <option value="" disabled="">Select</option>
+      {%- for variant in product.variants -%}
+      <option {% if variant == product.selected_variant %}selected="selected"{% endif %} {% unless variant.available %}disabled="disabled"{% endunless %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ variant.price | money }}</option>
+      {%- endfor -%}
+    </select>
+    <div class="codehouse_qty">
+      <input type="number" class="QuantitySelector__CurrentQuantity" pattern="[0-9]*" name="quantity" value="1">
+    </div>
+  </div>
+</div>
+{%- endform -%}
+
+{{ '//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js' | script_tag }}
+<script type="text/javascript">
+  $(window).scroll(function() {
+   var hT = $('.mobileskicky').offset().top,
+       hH = $('.mobileskicky').outerHeight(),
+       wH = $(window).height(),
+       b = $(window).width(),
+       wS = $(this).scrollTop();
+    if (b < 992) {
+      if (wS > (hT+hH-wH) && (hT > wS) && (wS+wH > hT+hH)){
+       $("#codehouse_bar").hide();
+      } else {
+       $("#codehouse_bar").show().css({ top: '70px' });
+      }
+    } else if (wS > (hT+hH-wH) && (hT > wS) && (wS+wH > hT+hH)){
+      $("#codehouse_bar").hide();
+    } else {
+      $("#codehouse_bar").show().css({ top: '140px' });
+    }
+  });
+</script>
+
+<style>
+  @media only screen and (max-width:600px){
+.mobileskicky {
+    margin-top: 24px;
+    box-shadow: 10px 10px 8px 10px #888888;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0px 20px 0 25px;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+}
+    #codehouse_bar {
+    display: none !important;
+}
+  }
+  #codehouse_bar {
+
+        opacity: 1;
+
+}
+    /*
+    .QuantitySelector.QuantitySelector--large {
+    float: right;
+}
+    .ProductForm__Option, .ProductForm__QuantitySelector {
+    width: 50%;
+    float: left;
+}
+  }
+  */
+  {%if template == "product.template2-3"%}
+  
+    @media only screen and (min-width:640px){
+      #codehouse_bar{
+      display: none !important;
+      }
+      .mobileskicky {
+       display:none !important; 
+      }
+      form#product_form_sticky {
+    display: none;
+}
+    }
+  
+  
+  {%endif%}
+
+</style>
