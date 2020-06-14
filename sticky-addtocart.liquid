@@ -31,22 +31,15 @@
 
 {{ '//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js' | script_tag }}
 <script type="text/javascript">
-  $(window).scroll(function() {
-   var hT = $('#product_form_{{product.id}}').offset().top,
-       hH = $('#product_form_{{product.id}}').outerHeight(),
-       wH = $(window).height(),
-       b = $(window).width(),
-       wS = $(this).scrollTop();
+  $(window).scroll(function(a) {
+    var b = $(window).width();
+    var c = $(window).scrollTop();
     if (b < 992) {
-      if (wS > (hT+hH-wH) && (hT > wS) && (wS+wH > hT+hH)){
-       $("#codehouse_bar").hide();
+      if (c > $('#product_form_{{product.id}}').offset().top + 100) {
+        $("#codehouse_bar").show().css({ bottom: '0px' });
       } else {
-       $("#codehouse_bar").show().css({ top: '70px' });
+        $("#codehouse_bar").hide();
       }
-    } else if (wS > (hT+hH-wH) && (hT > wS) && (wS+wH > hT+hH)){
-      $("#codehouse_bar").hide();
-    } else {
-      $("#codehouse_bar").show().css({ top: '200px' });
-    }
+    } else if (c > $('#product_form_{{product.id}}').offset().top + 100) $("#codehouse_bar").show().css({ bottom: '0px' }); else $("#codehouse_bar").hide();
   });
 </script>
